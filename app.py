@@ -16,14 +16,14 @@ def Get_data():
 	global j
 	i=0
 	tree.delete(*tree.get_children())
-	db = sqlite3.connect('test.db')
+	db = sqlite3.connect('database.db')
 	cursor = db.execute('select * from stock')
 	for row in cursor:
 		tree.insert('', 'end', text="Item_"+str(i), values=(row[0],row[1],row[2],row[3]))
 		i=i+1
 
 def Insert_data():
-	db = sqlite3.connect('test.db')
+	db = sqlite3.connect('database.db')
 	db.execute('insert into stock (Product_Id,Product_Name,Sell_Price,Quantity) values (?,?,?,?)',
 				[productIdEntry.get(),
 				productNameEntry.get(),
@@ -32,7 +32,7 @@ def Insert_data():
 	db.commit()
 
 def Update_data():
-	db = sqlite3.connect('test.db')
+	db = sqlite3.connect('database.db')
 	db.execute('update stock set Product_Id = ? ,Product_Name = ?,Sell_Price = ?,Quantity = ?  where Product_Id = ?',
 				(productIdEntry.get(),
 				productNameEntry.get(),
@@ -42,7 +42,7 @@ def Update_data():
 	db.commit()
 
 def Delete_data():
-	db = sqlite3.connect('test.db')
+	db = sqlite3.connect('database.db')
 	db.execute('delete from stock where Product_Id = ?',(productIdEntry.get(),))
 	db.commit()
 
